@@ -1,19 +1,11 @@
 class Solution {
 public:
     int concatenatedBinary(int n) {
-        const int MOD = 1e9 + 7;
-        long long result = 0;
-        int bits = 0;
-
-        for (int i = 1; i <= n; i++) {
-            
-            // If i is power of 2 → increase bit length
-            if ((i & (i - 1)) == 0) {
-                bits++;
-            }
-
-            // Shift result and add i
-            result = ((result << bits) % MOD + i) % MOD;
+        int M = 1e9 + 7;
+        long result = 0;
+        for(int i=1; i<=n; i++){
+            int digits = log2(i) + 1;
+            result = ((result << digits)%M + i)%M;
         }
 
         return result;
