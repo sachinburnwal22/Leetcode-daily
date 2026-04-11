@@ -1,27 +1,33 @@
 class Solution {
 public:
-    bool check(unordered_map<int, vector<int>>& mp, int S, int D, vector<bool>& visited){
-        if(S == D) return true;
-        if(visited[S]) return false;
-        visited[S] = true;
-        for(auto &it : mp[S]){
-            if(check(mp, it, D, visited)) return true;
-        }
-        return false;
-    }
     bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
         unordered_map<int, vector<int>> mp;
+        for(auto &it : edges){
+            int u = it[0];
+            int v = it[1];
 
-        for(vector<int> &edge : edges){
-            int u = edge[0];
-            int v = edge[1];
-
-            //bidirectional graph
             mp[u].push_back(v);
             mp[v].push_back(u);
         }
-        vector<bool> visited(n, false);
 
-        return check(mp, source, destination, visited);
+        vector<int> visited(n, 0);
+
+        queue<int> que;
+        que.push(source);
+        visited[source] = 1;
+
+        while(!que.empty()){
+            int node = que.front();
+            que.pop();
+            if(node == destination) return true;
+
+            for(auto &it : mp[node]){
+                if(!visited[it]){
+                    que.push(it);
+                    visited[it] = 1;
+                }
+            }
+        }
+        return false;
     }
 };
