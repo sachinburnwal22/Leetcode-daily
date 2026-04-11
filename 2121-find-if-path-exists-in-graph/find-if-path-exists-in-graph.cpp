@@ -1,22 +1,12 @@
 class Solution {
 public:
     bool check(unordered_map<int, vector<int>>& mp, int S, int D, vector<bool>& visited){
-        if(S == D){
-            return true;
-        }
-
-        if(visited[S] == true){
-            return false;
-        }
-
+        if(S == D) return true;
+        if(visited[S]) return false;
         visited[S] = true;
-
         for(auto &it : mp[S]){
-            if(check(mp, it, D, visited) == true){
-                return true;
-            }
+            if(check(mp, it, D, visited)) return true;
         }
-
         return false;
     }
     bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
