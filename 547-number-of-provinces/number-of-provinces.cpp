@@ -2,17 +2,27 @@ class Solution {
 public:
     int n;
 
+    // void bfs(int u, unordered_map<int, vector<int>>& mp, vector<bool>& visited){
+    //     queue<int> q;
+    //     q.push(u);
+    //     visited[u] = true;
+    //     while(!q.empty()){
+    //         int node = q.front();
+    //         q.pop();
+    //         for(auto &it : mp[node]){
+    //             if(!visited[it]){
+    //                 dfs(it, mp, visited);
+    //             }
+    //         }
+    //     }
+    // }
+
     void dfs(int u, unordered_map<int, vector<int>>& mp, vector<bool>& visited){
-        queue<int> q;
-        q.push(u);
         visited[u] = true;
-        while(!q.empty()){
-            int node = q.front();
-            q.pop();
-            for(auto &it : mp[node]){
-                if(!visited[it]){
-                    dfs(it, mp, visited);
-                }
+
+        for(auto &it : mp[u]){
+            if(!visited[it]){
+                dfs(it, mp, visited);
             }
         }
     }
